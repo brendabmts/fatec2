@@ -6,7 +6,9 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import br.emprestimo.modelo.Emprestimo;
 import br.emprestimo.modelo.Livro;
+import br.emprestimo.modelo.Usuario;
 
 public class UC06CadastrarLivro {
 	public static Livro livro;
@@ -30,4 +32,5 @@ public class UC06CadastrarLivro {
 		livro.setIsbn("121221");
 		assertEquals("121221",livro.getIsbn());
 	}
+	
 }

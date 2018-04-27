@@ -23,14 +23,10 @@ public class UC01RegistraEmprestimoDeLivro {
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 		//cenario
-		livro = new Livro();
-		livro.setIsbn("121212");
-		livro.setTitulo("Engenharia de Software");
-		livro.setAutor("Pressman");
-		usuario = new Usuario();
-		usuario.setRa("11111");
-		usuario.setNome("Jose da Silva");
+		livro = obtemLivro.comDadosValidos();
+		usuario = obtemUsuario.comDadosValidos();
 		servico = new ServicoEmprestimo();
+		emprestimo = new Emprestimo();
 	}
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
@@ -71,10 +67,69 @@ public class UC01RegistraEmprestimoDeLivro {
 		emprestimo.setLivro(null);
 	}
 	
+	@Test
+	public void CT07UC01FB_verifica_estado(){
+		//cenario
+		Livro umLivro = new Livro();
+		umLivro.setIsbn("121212");
+		umLivro.setTitulo("Engenharia de Software");
+		umLivro.setAutor("Sommerville");
+		Emprestimo umEmprestimo = new Emprestimo();
+		//acao
+		umEmprestimo.setLivro(umLivro);
+		//validacao
+		assertTrue(umEmprestimo.getLivro().equals(umLivro));
+	}
+
+	@Test(expected=RuntimeException.class)
+	public void CT08UC01FB_registrar_emprestimo_com_usuario_invalido_null() {
+		emprestimo.setUsuario(null);
+	}
 	
+	@Test
+	public void CT09UC01FB_verifica_estado(){
+		//cenario
+		Usuario umUsuario = new Usuario();
+		umUsuario.setNome("Brenda");
+		umUsuario.setRa("22222");
+		Emprestimo umEmprestimo = new Emprestimo();
+		//acao
+		umEmprestimo.setUsuario(umUsuario);
+		//validacao
+		assertTrue(umEmprestimo.getUsuario().equals(umUsuario));
+	}
 	
+
+	@Test(expected=RuntimeException.class)
+	public void CT10UC01FB_data_formato_invalido(){
+		emprestimo.setDataEmprestimo("26-04-2018");
+	}
 	
+	@Test(expected=RuntimeException.class)
+	public void CT11UC01FB_data_formato_valido_devolucao(){
+		emprestimo.setDataEmprestimo("26/04/2018");
+	}
 	
+	@Test(expected=RuntimeException.class)
+	public void CT12UC01FB_data_formato_invalido(){
+		emprestimo.setDataDevolucao("26-04-2018");
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void CT13UC01FB_data_formato_valido_devolucao(){
+		emprestimo.setDataDevolucao("26/04/2018");
+	}
+	
+
+	@Test(expected=RuntimeException.class)
+	public void CT14UC01FB_registrar_emprestimo_com_autor_invalido_null() {
+		livro.setAutor(null);
+	}
+	
+	@Test(expected=RuntimeException.class)
+	public void CT15UC01FB_registrar_emprestimo_com_isbn_invalido_null() {
+		livro.setIsbn(null);
+	}
 	
 	
 	

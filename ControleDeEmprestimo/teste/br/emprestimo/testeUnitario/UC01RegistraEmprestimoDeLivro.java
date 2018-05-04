@@ -131,8 +131,22 @@ public class UC01RegistraEmprestimoDeLivro {
 		livro.setIsbn(null);
 	}
 	
-	
-	
+		
+	@Test
+	public void quandoDataDevolucaoForDomingoErro() {
+		Emprestimo umEmprestimo = new Emprestimo();
+		String data = "29/04/2018"; //domingo
+		//acao
+		try{
+			
+		umEmprestimo.setDataDevolucao(data);
+		fail("Não deveria aceitar uma data no domingo");
+	} catch(RuntimeException e){
+		//verificacao
+		String resultadoEsperado = "Data invalida";
+		assertTrue(resultadoEsperado.equals(e.getMessage()));
+		
+	}
 	
 	
 	
